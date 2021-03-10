@@ -1,24 +1,22 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const generateReadMe = (answers) =>
-    `${answers.project-title}
+const generateReadMe = function(answers) {
+    `how ${answers.project}
     ${answers.description}
     ${answers.installation}
     ${answers.usage}
     ${answers.contributing}
     ${answers.tests}
-    ${answers.license}
-    
-    
-    
-    `;
+    ${answers.license}`;
+}
 
-    inquirer
+
+inquirer
     .prompt([
        {
          type: 'input',
-         name: 'project-title',
+         name: 'project',
          message: 'What is the name of your project?',
        },
        {
@@ -50,7 +48,7 @@ const generateReadMe = (answers) =>
          type: 'list',
          name: 'license',
          choices: ['MIT', 'APACHE', 'GPL', 'ISC'],
-       }
+       },
      ])
      .then((answers) => {
        const ReadMeContent = generateReadMe(answers);
@@ -58,4 +56,4 @@ const generateReadMe = (answers) =>
        fs.writeFile('Readme.md', ReadMeContent, (err) =>
          err ? console.log(err) : console.log('Successfully created Readme.md!')
        );
-     });
+    });
